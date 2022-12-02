@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+    <script>
+        let compSelection = getComputerChoice();
+        let playerSelection = 'rock';
+        let wins;
+        let losses;
+        let draws;
+
+        // randomizes rock paper or scissors for computer
+        function getComputerChoice() {
+            switch(Math.floor(Math.random() * 3)) {
+                case 0: return 'rock';
+                break;
+                case 1: return 'paper';
+                break;
+                case 2: return 'scissors';
+                break;
+            }
+        }
+        // plays one round of RPS and logs results
+        function oneGame(playerSelection, compSelection) {
+            playerSelection = playerSelection.toLowerCase();
+            compSelection = getComputerChoice();
+            if (playerSelection === compSelection){
+                draws++;
+                    console.log("It's a draw!")
+            }
+            else if (playerSelection === 'rock' && compSelection === 'scissors' || playerSelection === 'paper' && compSelection === 'rock' || playerSelection === 'scissors' && compSelection === 'paper') {
+                wins++;
+                    console.log("you win! " + playerSelection + " beats " + compSelection);
+            }
+            else {
+                losses++;
+                    console.log("you lose! " + compSelection + " beats " + playerSelection);
+            }
+        }
+        //plays 5 rounds of RPS, logging results after each round
+        function game() {
+            wins = 0;
+            losses = 0;
+            draws = 0;
+
+            for (let i = 0;i<5; i++) {
+                let playerSelection = prompt("choose your weapon:");
+                oneGame(playerSelection, compSelection);
+            }
+            return wins +' wins ' + losses + ' losses ' + draws + ' draws ';
+        }
+    </script>
+
+</body>
+
+</html>
