@@ -7,13 +7,19 @@
 </head>
 
 <body>
-    <script>
-        let compSelection = getComputerChoice();
-        let playerSelection = 'rock';
-        let wins;
-        let losses;
-        let draws;
+    <div id="scores"></div>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div id="container"></div>
 
+    <script>
+        let compSelection;
+        let playerSelection;
+        let wins = 0;
+        let losses = 0;
+        let draws = 0;
+    
         // randomizes rock paper or scissors for computer
         function getComputerChoice() {
             switch(Math.floor(Math.random() * 3)) {
@@ -29,33 +35,71 @@
         function oneGame(playerSelection, compSelection) {
             playerSelection = playerSelection.toLowerCase();
             compSelection = getComputerChoice();
+            if (wins == 5 || losses == 5) {
+                wins = 0;
+                losses = 0;
+                draws = 0;
+            }
             if (playerSelection === compSelection){
                 draws++;
-                    console.log("It's a draw!")
+                div.textContent = "It's a draw!";
+                score.textContent = "wins: "+ wins + " losses: " + losses + " draws: " + draws;
             }
             else if (playerSelection === 'rock' && compSelection === 'scissors' || playerSelection === 'paper' && compSelection === 'rock' || playerSelection === 'scissors' && compSelection === 'paper') {
                 wins++;
-                    console.log("you win! " + playerSelection + " beats " + compSelection);
+                if (wins == 5) {
+                    div.textContent = 'You Win!'
+                    score.textContent = "wins: "+ wins + " losses: " + losses + " draws: " + draws;
+                }
+                else {        
+                div.textContent = "you win! " + playerSelection + " beats " + compSelection;
+                score.textContent = "wins: "+ wins + " losses: " + losses + " draws: " + draws;
+                }
             }
             else {
                 losses++;
-                    console.log("you lose! " + compSelection + " beats " + playerSelection);
+                if (losses == 5) {
+                    div.textContent = 'You Lose!'
+                    score.textContent = "wins: "+ wins + " losses: " + losses + " draws: " + draws;
+                } 
+                else {
+                    div.textContent = "you lose! " + compSelection + " beats " + playerSelection;
+                    score.textContent = "wins: "+ wins + " losses: " + losses + " draws: " + draws;
+                }
             }
         }
         //plays 5 rounds of RPS, logging results after each round
-        function game() {
+        /*function game() {
             wins = 0;
             losses = 0;
             draws = 0;
-
+    
             for (let i = 0;i<5; i++) {
                 let playerSelection = prompt("choose your weapon:");
                 oneGame(playerSelection, compSelection);
             }
             return wins +' wins ' + losses + ' losses ' + draws + ' draws ';
-        }
-    </script>
+        } */
+        
 
+    
+        let rockbtn = document.querySelector('#rock');
+        rockbtn.addEventListener('click', () => { oneGame('rock');});
+        
+        let papebtn = document.querySelector('#paper');
+        papebtn.addEventListener('click', () => { oneGame('paper');});
+
+        let scisbtn = document.querySelector('#scissors');
+        scisbtn.addEventListener('click', () => { oneGame('scissors');});
+
+        const div = document.createElement('div');
+        container.appendChild(div);
+
+        const score = document.createElement('div');
+        score.textContent = "wins: "+ wins + " losses: " + losses + " draws: " + draws;
+        scores.appendChild(score);
+
+        </script>
 </body>
 
 </html>
